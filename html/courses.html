@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="html">
+
+<head>
+    <title>Courses</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body data-ng-controller="body">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Instructor</th>
+            <th>Time Period</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Price</th>
+            <th>Certifacte</th>
+            <th>Image</th>
+            <th>Edit</th>
+        </tr>
+        <tr ng-repeat="c in courses">
+            <td>{{c._id}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.description}}</td>
+            <td>{{c.instructor}}</td>
+            <td>{{c.timeperiod}}</td>
+            <td>{{c.from}}</td>
+            <td>{{c.to}}</td>
+            <td>{{c.price}}</td>
+            <td>{{c.certifcate}}</td>
+            <td><img src="/images/{{c.img}}" class="img-responsive"></td>
+            <td><a href="">Update</a> <a href="/delete">Delete</a></td>
+        </tr>
+    </table>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var app = angular.module('html', []);
+
+        app.controller('body', function($scope, $http) {
+
+            $http({
+                method: 'GET',
+                url: 'http://localhost:6060/api/courses'
+            }).then(function successCallback(response) {
+                $scope.courses = response.data;
+
+                for (var i = 0; i < $scope.courses.length; i++) {
+                    console.log($scope.courses);
+
+                }
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
